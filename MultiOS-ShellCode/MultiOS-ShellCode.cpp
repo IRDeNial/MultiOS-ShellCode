@@ -1,40 +1,5 @@
-#include <Windows.h>
-#include <NTSecAPI.h>
-#include <TlHelp32.h>
-#include <vector>
-
-namespace Shell {
-
-	// This function is so common, I don't even know where it came from or who to credit
-	// So lets just say I didn't write it and just copied it from somewhere.
-	bool bDataCompare(const BYTE* pData, const BYTE* bMask, const char* szMask)	{
-		for (; *szMask; ++szMask, ++pData, ++bMask){
-			if (*szMask == 'x' && *pData != *bMask)
-				return false;
-		}
-		return (*szMask) == NULL;
-	}
-
-	// This one too.
-	DWORD dwFindPattern(DWORD dwAddress, DWORD dwLen, BYTE *bMask, char * szMask) {
-		for (DWORD i = 0; i<dwLen; i++){
-			if (bDataCompare((BYTE*)(dwAddress + i), bMask, szMask))
-				return (DWORD)(dwAddress + i);
-		}
-		return NULL;
-	}
-
-	// Was used in a different program, QuikHop.
-	DWORD FixAddr(BYTE* shellcode, DWORD newAddr, PVOID AllocBase, DWORD dwLen = 1024) {
-		DWORD fixAddr = dwFindPattern((DWORD)&shellcode[0], dwLen, (BYTE*)"\xDE\xAD\xC0\xDE", "xxxx");
-		DWORD realOffset = (fixAddr - (DWORD)&shellcode[0]) + (DWORD)AllocBase;
-		if (fixAddr) {
-			*(DWORD *)fixAddr = newAddr;
-			return realOffset;
-		}
-		return NULL;
-	}
-}
+#include "Shell.h"
+#include <stdio.h>
 
 int main() {
 	// This is the shell code.

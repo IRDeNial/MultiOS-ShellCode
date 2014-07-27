@@ -77,6 +77,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MultiOS-ShellCode.cpp" />
+    <ClCompile Include="Shell.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shell.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
