@@ -3,6 +3,10 @@ MultiOS-ShellCode
 
 Shell Code that is modified on run-time to load the correct libraries.
 
+-----------------
+
+Notes:
+
 Should compile and run as is.
 
 View comments in MultiOS-ShellCode\MultiOS-ShellCode.cpp for documentation.
